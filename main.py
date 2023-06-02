@@ -13,7 +13,7 @@ import xgboost as xgb
 import numpy as np
 import random
 from keras.models import load_model
-
+from PIL import Image;
 
 model = load_model('model.h5')
 
@@ -80,6 +80,7 @@ option_Mother=["AlzheimerDisease","ArthritisDisease","Cancerdisease"
 ,"ThyroidDisordersdisease "]
 selected_diseases = []
 with st.expander("Show Checkboxes"):
+    
     checkbox1s = st.checkbox(diseases[0].split()[0],key="unique")
     checkbox2s = st.checkbox(diseases[1].split()[0],key=1)
     checkbox3s = st.checkbox(diseases[2].split()[0],key=11)
@@ -128,6 +129,7 @@ if checkbox11s:
 selected_diseases_mother = []
 st.text("mother")
 with st.expander("Show Checkboxes"):
+
     checkbox1_mother = st.checkbox(option_Mother[0].split()[0])
     checkbox2_mother = st.checkbox(option_Mother[1].split()[0])
     checkbox3_mother = st.checkbox(option_Mother[2].split()[0])
@@ -719,6 +721,8 @@ percentage10 = (len(selected_options_option10) / len(option10)) * 50+percentage_
 percentage11 = (len(selected_options_option11) / len(option11)) * 50+percentage_checkbox11+percentage_checkbox11_mother+percentage_motherfather11+percentage_mothermother11+percentage_fatherfather11+percentage_fathermother11+percentage_uncle11+percentage_aunt11+percentage_mymaternaluncle11+percentage_Mymaternalaunt11
 
 
+
+
 if st.button('Make Prediction'):
     inputs = [[percentage1/100,percentage2/100,percentage3/100,percentage4/100,percentage5/100,percentage6/100,percentage7/100,percentage8/100,percentage9/100,percentage10/100,percentage11/100]]
     prediction = model.predict(inputs)
@@ -734,48 +738,11 @@ if st.button('Make Prediction'):
     st.write(f"The percentage of Parkinson's disease: {100*prediction[0][8]}%")
     st.write(f"The percentage of Spina bifida disease: {100*prediction[0][9]}%")
     st.write(f"The percentage of Thyroid disorders disease: {100*prediction[0][10]}%")
-st.markdown(css, unsafe_allow_html=True)
-background_image = open("imageEdit.jpg", 'rb').read()
-
-# Display the background image using st.markdown()
-st.markdown(css, unsafe_allow_html=True)
-st.image(background_image, use_column_width=True)
-import subprocess
-
-# Start the Streamlit server
-streamlit_process = subprocess.Popen(["streamlit", "run", "main.py"])
-
-# To stop the server, you can call the 'terminate' method
-streamlit_process.terminate()
-# Create a container div to hold the checkboxes
-
-# from flask import Flask
-
-# app = Flask(__name__)
-# @app.route('/')
-# def index():
-#     return app.send_static_file('index.html')
-# if __name__ == '__main__':
-#     app.run()
 
 
-    # Create checkboxes for each disease
-
-
-# Create a container div to hold the checkboxes
-
-
-    # Create an expander for the checkboxes
-  
-
-    # Display the selected diseases
-  
-
-#
-# 52 symotoms
-# 22 disease 
-# Add a button to the Streamlit app
-
+img=Image.open("imageEdit.jpg")
+# st.image(img)
+# o=
 
 
 # %%
