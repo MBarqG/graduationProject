@@ -760,7 +760,7 @@ if st.button('Make Prediction'):
     st.markdown("**based on you highes Percentage:**")
 
     if higheschance == prediction[0][0]:
-        docs.loc[docs["Specialization"]=="Specializes in Alzheimer's disease"]
+        docs.loc[docs["Specialization"]==" Specializes in Alzheimer's disease"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Alzheimer's disease "]
         lab[1].values[0]
@@ -772,55 +772,55 @@ if st.button('Make Prediction'):
         lab[1].values[0]
 
     if higheschance == prediction[0][2]:
-        docs.loc[docs["Specialization"]=="Specializes in Cancer"]
+        docs.loc[docs["Specialization"]==" Specializes in Cancer"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Cancer "]
         lab[1].values[0]
 
     if higheschance == prediction[0][3]:
-        docs.loc[docs["Specialization"]=="Specializes in Dementia"]
+        docs.loc[docs["Specialization"]==" Specializes in Dementia"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Dementia "]
         lab[1].values[0]
         
     if higheschance == prediction[0][4]:
-        docs.loc[docs["Specialization"]=="Specializes in Diabetes"]
+        docs.loc[docs["Specialization"]==" Specializes in Diabetes"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Diabetes "]
         lab[1].values[0]
 
     if higheschance == prediction[0][5]:
-        docs.loc[docs["Specialization"]=="Specializes in Heart disease"]
+        docs.loc[docs["Specialization"]==" Specializes in Heart disease"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Heart disease "]
         lab[1].values[0]
 
     if higheschance == prediction[0][6]:
-        docs.loc[docs["Specialization"]=="Specializes in High blood pressure"]
+        docs.loc[docs["Specialization"]==" Specializes in High blood pressure"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="High blood pressure "]
         lab[1].values[0]
 
     if higheschance == prediction[0][7]:
-        docs.loc[docs["Specialization"]=="Specializes in Multiple sclerosis"]
+        docs.loc[docs["Specialization"]==" Specializes in Multiple sclerosis"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Multiple sclerosis "]
         lab[1].values[0]
 
     if higheschance == prediction[0][8]:
-        docs.loc[docs["Specialization"]=="Specializes in Parkinson's disease"]
+        docs.loc[docs["Specialization"]==" Specializes in Parkinson's disease"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Parkinson's disease "]
         lab[1].values[0]
 
     if higheschance == prediction[0][9]:
-        docs.loc[docs["Specialization"]=="Specializes in Spina bifida"]
+        docs.loc[docs["Specialization"]==" Specializes in Spina bifida"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Spina bifida "]
         lab[1].values[0]
 
     if higheschance == prediction[0][10]:
-        docs.loc[docs["Specialization"]=="Specializes in Thyroid disorders"]
+        docs.loc[docs["Specialization"]==" Specializes in Thyroid disorders"]
         st.markdown("**recommended lab:**")
         lab = labs.loc[labs[0]=="Thyroid disorders "]
         lab[1].values[0]
