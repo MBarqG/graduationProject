@@ -6,16 +6,17 @@
 
 import webbrowser
 import streamlit as st 
-from streamlit.components.v1 import html
+import streamlit.components.v1 as components
+# from streamlit.components.v1 import html
 import pandas as pd
 from sklearn.preprocessing import  LabelEncoder
 import xgboost as xgb
 import numpy as np
 import random
-from keras.models import load_model
-from PIL import Image;
+import keras
+from PIL import Image
 
-model = load_model('model.h5')
+model = keras.models.load_model('model.h5')
 
 st.header("illnesses Prediction App")
 st.text_input("Enter your Name: ", key="name")
@@ -34,6 +35,7 @@ data[['hasDementia ']] = ordinal_encoder.fit_transform(data[['hasDementia ']])
 data[['hasDiabetes ']] = ordinal_encoder.fit_transform(data[['hasDiabetes ']])
 data[['hasParkinsonDisease ']] = ordinal_encoder.fit_transform(data[['hasParkinsonDisease ']])
 data[['hasHeartDisease ']] = ordinal_encoder.fit_transform(data[['hasHeartDisease ']])
+
 
 selected_options_option1 = set()
 selected_options_option2=set()
@@ -63,7 +65,7 @@ css = """
     }
 </style>
 """
-
+st.markdown("___family infromation:___")
 st.text("father")
 with st.container():
 
@@ -617,9 +619,9 @@ option10=["weakness or total paralysis of the legs","bowel incontinence and urin
 option11=["twitching or trembling","warm skin and excessive sweating"
           ,"red palms of your hands","loose nails","patchy hair loss or thinning"
          ]
+st.markdown("___Personal infromation:___")
 st.text("Alzheimer's disease symptoms")
 with st.expander("Show Options"):
-
  for i, option in enumerate(option1):
     # Create a unique key for each checkbox
     checkbox_key = f"checkbox_{i}"
@@ -721,10 +723,18 @@ percentage10 = (len(selected_options_option10) / len(option10)) * 50+percentage_
 percentage11 = (len(selected_options_option11) / len(option11)) * 50+percentage_checkbox11+percentage_checkbox11_mother+percentage_motherfather11+percentage_mothermother11+percentage_fatherfather11+percentage_fathermother11+percentage_uncle11+percentage_aunt11+percentage_mymaternaluncle11+percentage_Mymaternalaunt11
 
 
+sum = 7
 
+
+insureence = pd.read_csv("assests\insurence co.csv")
+insureence['Discount']=insureence['Discount'].str.rstrip("%").astype(float)
+docs = pd.read_csv("assests\doc.csv")
+labs = pd.read_excel("assests\labs.xlsx",header=None)
+phy = pd.read_excel("assests\phy.xlsx",header=None)
 
 if st.button('Make Prediction'):
     inputs = [[percentage1/100,percentage2/100,percentage3/100,percentage4/100,percentage5/100,percentage6/100,percentage7/100,percentage8/100,percentage9/100,percentage10/100,percentage11/100]]
+    # st.write(inputs)
     prediction = model.predict(inputs)
     # st.write(prediction)
     st.write(f"The percentage of  Alzheimer's disease is: {100*prediction[0][0]}%")
@@ -739,10 +749,85 @@ if st.button('Make Prediction'):
     st.write(f"The percentage of Spina bifida disease: {100*prediction[0][9]}%")
     st.write(f"The percentage of Thyroid disorders disease: {100*prediction[0][10]}%")
 
+    for i in prediction[0]:
+        sum = sum + i
+
+    st.markdown("___insurance companies that fit:___")
+    insureence.loc[(insureence['Discount'] > sum-1.5) & (insureence['Discount'] < sum+1.5)]
+
+    higheschance = max(prediction[0])
+    st.markdown("___list of Doctors that will help:___")
+    st.markdown("**based on you highes Percentage:**")
+
+    if higheschance == prediction[0][0]:
+        docs.loc[docs["Specialization"]=="Specializes in Alzheimer's disease"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Alzheimer's disease "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][1]:
+        docs.loc[docs["Specialization"]==" Specializes in Arthritis"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Arthritis "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][2]:
+        docs.loc[docs["Specialization"]=="Specializes in Cancer"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Cancer "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][3]:
+        docs.loc[docs["Specialization"]=="Specializes in Dementia"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Dementia "]
+        lab[1].values[0]
+        
+    if higheschance == prediction[0][4]:
+        docs.loc[docs["Specialization"]=="Specializes in Diabetes"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Diabetes "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][5]:
+        docs.loc[docs["Specialization"]=="Specializes in Heart disease"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Heart disease "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][6]:
+        docs.loc[docs["Specialization"]=="Specializes in High blood pressure"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="High blood pressure "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][7]:
+        docs.loc[docs["Specialization"]=="Specializes in Multiple sclerosis"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Multiple sclerosis "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][8]:
+        docs.loc[docs["Specialization"]=="Specializes in Parkinson's disease"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Parkinson's disease "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][9]:
+        docs.loc[docs["Specialization"]=="Specializes in Spina bifida"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Spina bifida "]
+        lab[1].values[0]
+
+    if higheschance == prediction[0][10]:
+        docs.loc[docs["Specialization"]=="Specializes in Thyroid disorders"]
+        st.markdown("**recommended lab:**")
+        lab = labs.loc[labs[0]=="Thyroid disorders "]
+        lab[1].values[0]
+
+    st.markdown("**Pharmacis that we recommend**")
+    Pharmacis = phy.sample(n=5)
+    Pharmacis
+
 
 img=Image.open("imageEdit.jpg")
-# st.image(img)
-# o=
-
-
-# %%
